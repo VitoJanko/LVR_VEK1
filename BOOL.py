@@ -120,6 +120,23 @@ class And():
             return Tru()
         if len(lst)==1:
             return lst[0].spl()
+        #negacija
+        for i in range(len(lst)):
+            for j in range(i):
+                if str(simplify(Not(lst[i])))==str(lst[j]):
+                    return False
+        #absorpcija
+        karmen = []
+        for p in lst:
+            if isinstance(p,Or):
+                removed = False
+                for q in p.formula:
+                    for p2 in lst:
+                        if str(p2)==str(q) and  not removed:
+                            karmen.append(p)
+                            removed = True
+        for p in karmen:
+            lst.remove(p)
         return And(lst)
         
         
@@ -179,7 +196,25 @@ class Or():
             return Fls()
         if len(lst)==1:
             return lst[0].spl()
+        #negacija
+        for i in range(len(lst)):
+            for j in range(i):
+                if str(simplify(Not(lst[i])))==str(lst[j]):
+                    return True
+        #absorpcija
+        eva = []
+        for p in lst:
+            if isinstance(p,And):
+                removed = False
+                for q in p.formula:
+                    for p2 in lst:
+                        if str(p2)==str(q) and  not removed:
+                            eva.append(p)
+                            removed = True
+        for p in eva:
+            lst.remove(p)
         return Or(lst)
+    
         
 
 # Vaje 2 #
