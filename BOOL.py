@@ -1,6 +1,7 @@
 # True je True
 # False je False
 
+#niki
 def simplify(formula):
     return formula.nnf().spl()
 
