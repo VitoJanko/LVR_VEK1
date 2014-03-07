@@ -220,6 +220,9 @@ class Or():
 #==============================================================================
 #Prevajanje problemov iz razumljivih na grde
 
+##REPR TUKI NE DELA##
+
+
 def makeSudoku(template):
     formule = []
     #Vsi pogoji za izpoljena polja 
