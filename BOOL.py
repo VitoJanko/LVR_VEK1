@@ -4,6 +4,9 @@
 def simplify(formula):
     return formula.nnf().spl()
 
+def cnf(formula):
+    return simplify(formula).cnf()
+
 class Fls():
     def __init__(self):
         pass
@@ -17,6 +20,8 @@ class Fls():
         return Tru()
     def spl(self):
         return Fls()
+    def cnf(self):
+        return And([Or([Fls()])])
     
     
 class Tru():
@@ -32,13 +37,15 @@ class Tru():
         return Fls()
     def spl(self):
         return Tru()
+    def cnf(self):
+        return And([Or([Tru()])])
 
 
 class Var():
     def __init__(self,ime):
         self.ime=ime
     def __repr__(self,priority = 5):
-        return self.ime
+        return str(self.ime)
     def vrednost(self,v):
         return v[self.ime]
     def nnf(self):
@@ -47,13 +54,14 @@ class Var():
         return Not(Var(self.ime))
     def spl(self):
         return Var(self.ime)
-        
+    def cnf(self):
+        return And([Or([Var(self.ime)])])
 
 class Not():
     def __init__(self,p):
         self.formula=p
     def __repr__(self,priority = 4):
-        return "Not " + self.formula.__repr__(priority=4)
+        return "-" + self.formula.__repr__(priority=4)
     def vrednost(self,v):
         return not (self.formula.vrednost(v))
     def nnf(self):
@@ -62,22 +70,24 @@ class Not():
         return self.formula.nnf()
     def spl(self):
         return Not(self.formula)
+    def cnf(self):
+        return And([Or([Not(self.formula)])])
 
 class And():
     def __init__(self,ps):
         self.formula=ps
-    def __repr__(self, priority = 3):
+    def __repr__(self, priority = 1.5):
         s=""
         b=False
         if len(self.formula)==0:
             return "True"
         for p in self.formula:
             if not b:
-                s=s+p.__repr__(priority=3)
+                s=s+p.__repr__(priority=2)
                 b= True
             else:
-                s=s+" And "+p.__repr__(priority=3)
-        if priority>3:
+                s=s+" And "+p.__repr__(priority=2)
+        if priority>=2:
             return "("+s+")"
         else:
             return s
@@ -137,12 +147,23 @@ class And():
         for p in karmen:
             lst.remove(p)
         return And(lst)
-        
+
+    def cnf(self):
+        nove = []
+        if len(self.formula)==0:
+            return And(Or([Tru()]))
+        for f in self.formula:
+            c = f.cnf()
+            if isinstance(c,And):
+                nove+=c.formula
+            else:
+                print "Neki je slo zelo narobe"
+        return And(nove)
         
 class Or():
     def __init__(self,ps):
         self.formula=ps
-    def __repr__(self,priority=2):
+    def __repr__(self,priority=1.5):
         s=""
         b=False
         if len(self.formula)==0:
@@ -153,7 +174,7 @@ class Or():
                 b= True
             else:
                 s=s+" Or "+p.__repr__(priority=2)
-        if priority>2:
+        if priority>=2:
             return "("+s+")"
         else:
             return s
@@ -213,6 +234,23 @@ class Or():
         for p in eva:
             lst.remove(p)
         return Or(lst)
+
+    def cnf(self):
+        if len(self.formula)==0:
+            return And(Or([]))
+        elif len(self.formula)==1:
+            return self.formula[0].cnf()
+        else:
+            vito = self.formula[0].cnf()
+            rep = Or(self.formula[1:]).cnf()
+            cleni = []
+            for f in vito.formula:
+                for f2 in rep.formula:
+                    cleni.append(Or(f.formula+f2.formula))
+            return And(cleni)
+            
+            
+        
     
         
 
