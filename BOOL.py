@@ -411,7 +411,7 @@ def vstavi(cnf, spr, cd):
             sez.append(podsez)
     return sez
     
-def prevedi(izraz):
+def resi(izraz):
     izraz = cnf(izraz)
     cnf1 = [f.formula for f in izraz.formula]
     cs = []
@@ -429,7 +429,7 @@ def prevedi(izraz):
                     if ff.formula.ime not in cs:
                         cs.append(ff.formula.ime)
         cnF.append(s)
-    return cnF, cs
+    return SAT(cnF, {}, cs)
             
                 
             
