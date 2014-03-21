@@ -1,3 +1,4 @@
+# -*- coding: cp1250 -*-
 # True je True
 # False je False
 
@@ -248,9 +249,7 @@ class Or():
                 for f2 in rep.formula:
                     cleni.append(Or(f.formula+f2.formula))
             return And(cleni)
-            
-            
-        
+                        
     
         
 
@@ -346,3 +345,54 @@ def EQ(f1,f2):
 
 def XOR(f1,f2):
     return Or([And([f1,Not(f2)]),And([Not(f1),f2])])
+
+#===============================================================================
+#SAT
+def SAT(cnf,spr,cs):
+    #spr=spremenljivke, cs=seznam spremenljivk, ki nimajo se vrednosti
+    found = True
+    while found: 
+        cnf = vstavi(cnf,spr,cs)
+        found =False
+        for formula in cnf:
+            if len(formula)==0:
+                return "Ni resitve."
+            if len(formula)==1:
+                found = True
+                if formula[0][0]=='-':
+                    spr[formula[0][1:]]=False
+                    cs.remove(formula[0][1:])
+                else:
+                    spr[formula[0]]=True
+                    cs.remove(formula[0])
+    return spr
+        
+
+def vstavi(cnf, spr, cd):
+    sez=[]
+    for formula in cnf:
+        podsez=[]
+        isTrue = False
+        for f in formula:
+            found = False
+            if f in spr.keys():
+                if spr[f]:
+                    found =  True
+                    isTrue = True
+                else:
+                    found= True
+            if f[1:] in spr.keys():
+                if spr[f[1:]]:
+                    found =  True
+                else:
+                    isTrue = True
+                    found= True
+            if not found:
+                podsez.append(f)
+        if not isTrue:
+            sez.append(podsez)
+    return sez
+    
+        
+        
+        
