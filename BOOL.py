@@ -356,16 +356,34 @@ def SAT(cnf,spr,cs):
         found =False
         for formula in cnf:
             if len(formula)==0:
-                return "Ni resitve."
+                return False
             if len(formula)==1:
                 found = True
                 if formula[0][0]=='-':
                     spr[formula[0][1:]]=False
-                    cs.remove(formula[0][1:])
+                    if formula[0][1:] in cs:
+                        cs.remove(formula[0][1:])
                 else:
                     spr[formula[0]]=True
-                    cs.remove(formula[0])
-    return spr
+                    if formula[0] in cs:
+                        cs.remove(formula[0])
+    if len(cnf)==0:
+        return spr
+    else:
+        neReseno = cs[0]
+        cs = cs[1:]
+        spr[neReseno] = True
+        resitev = SAT(cnf, spr, cs)
+        if resitev:
+           return resitev
+        else:
+            spr[neReseno] = False
+            resitev = SAT(cnf, spr, cs)
+            if resitev:
+                return resitev
+            else:
+                return False
+        
         
 
 def vstavi(cnf, spr, cd):
@@ -393,6 +411,28 @@ def vstavi(cnf, spr, cd):
             sez.append(podsez)
     return sez
     
-        
+def prevedi(izraz):
+    izraz = cnf(izraz)
+    cnf1 = [f.formula for f in izraz.formula]
+    cs = []
+    cnF = []
+    for f in cnf1:
+        s=[]
+        for ff in f:
+            if isinstance(ff,Var):
+                s.append(ff.ime)
+                if ff.ime not in cs:
+                    cs.append(ff.ime)
+            elif isinstance(ff,Not):
+                if isinstance(ff.formula,Var):
+                    s.append('-'+ff.formula.ime)
+                    if ff.formula.ime not in cs:
+                        cs.append(ff.formula.ime)
+        cnF.append(s)
+    return cnF, cs
+            
+                
+            
+    
         
         
