@@ -13,6 +13,20 @@ def cnf(formula):
 #================================================================================
 #Razredi za delo z logiènimi izrazi.
 
+#OPIS METOD ZNOTRAJ RAZREDOV:
+#___________________________
+#nnf():
+#   funkcija, ki izraz prevede v "negation normal form", èe ni negiran.
+#
+#nnf2():
+#   funkcija, ki izraz prevede v "negation normal form", èe je negiran.
+#
+#spl():
+#   funkcija, ki izraz poenostavi.
+#
+#cnf():
+#   funkcija, ki izraz prevede v CNF obliko.
+
 class Fls():
     #FLS() je razred, ki predstavlja boolovo vrednost False.
     def __init__(self):
@@ -113,9 +127,10 @@ class And():
     def nnf2(self):
         return Or([Not(p).nnf() for p in self.formula])
     def spl(self):
-        temp = self.formula
+                                    #Notranje in zunanji AND() poenostavimo in združimo v en sam seznam.
+        temp = self.formula                 #seznam izrazov, ki nastopajo v AND()
         while True:
-            lst = []
+            lst = []                        #seznam, ki bo hranil razširjen seznam
             found = False;
             for p in temp:
                 if isinstance(p,And):
@@ -126,6 +141,7 @@ class And():
             temp = lst
             if not found:
                 break
+                                    #Zavržemo podovjene spremenljivke in vrednosti Tru().
         s=sorted([p.spl() for p in temp], key = str)
         lst=[]
         for p in s:
@@ -134,6 +150,7 @@ class And():
                     lst.append(p)
                 elif str(p)!=str(lst[-1]):
                    lst.append(p)
+                                   #Celoten izraz spremenimo v Fls(), èe v seznamu lst nastopa vsaj en Fls(). 
         for p in lst:
             if str(p)=="False" or str(p)=="(False)":
                 return Fls()
@@ -141,13 +158,13 @@ class And():
             return Tru()
         if len(lst)==1:
             return lst[0].spl()
-        #negacija
+                                    #Upoštevamo funkcije za negacijo.
         for i in range(len(lst)):
             for j in range(i):
                 if str(simplify(Not(lst[i])))==str(lst[j]):
                     return False
-        #absorpcija
-        karmen = []
+                                    #Upoštevamo absorpcijo na elementarni ravni.
+        karmen = []                         #prazen seznam, spremenljivk, ki jih bomo zavrgli zaradi absorpcije
         for p in lst:
             if isinstance(p,Or):
                 removed = False
