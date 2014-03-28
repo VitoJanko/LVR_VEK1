@@ -1,4 +1,9 @@
 # -*- coding: cp1250 -*-
+#================================================================================
+
+#PROGRAM ZA PISENJE LOGIČNIH IZRAZOV IN REŠEVANJA SAT.
+
+#================================================================================
 
 def simplify(formula):
     #SIMPLIFY(formula) je funkcija za poenostavljanje izjavne formule, na podlagi
@@ -11,10 +16,10 @@ def cnf(formula):
     return simplify(formula).cnf()
 
 #================================================================================
-#Razredi za delo z logičnimi izrazi.
+#RAZREDI ZA DELO Z LOGIČNIMI VEZNIKI
 
+#----------------------------------------------------------------------
 #OPIS METOD ZNOTRAJ RAZREDOV:
-#___________________________
 #nnf():
 #   funkcija, ki izraz prevede v "negation normal form", če ni negiran.
 #
@@ -26,6 +31,7 @@ def cnf(formula):
 #
 #cnf():
 #   funkcija, ki izraz prevede v CNF obliko.
+#-------------------------------------------------------------------------
 
 class Fls():
     #FLS() je razred, ki predstavlja boolovo vrednost False.
@@ -186,7 +192,7 @@ class And():
             if isinstance(c,And):
                 nove+=c.formula
             else:
-                print "Neki je slo zelo narobe"
+                print "Neki je šlo zelo narobe."
         return And(nove)
         
 class Or():
@@ -274,7 +280,7 @@ class Or():
         elif len(self.formula)==1:
             return self.formula[0].cnf()
         else:
-            vito = self.formula[0].cnf()
+            vito = self.formula[0].cnf()        #prvi izraz v formuli
             rep = Or(self.formula[1:]).cnf()
             cleni = []
             for f in vito.formula:
