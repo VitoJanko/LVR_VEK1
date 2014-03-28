@@ -219,9 +219,10 @@ class Or():
     def nnf2(self):
         return And([Not(p).nnf() for p in self.formula])
     def spl(self):
-        temp = self.formula
+                                    #Notranje in zunanji OR() poenostavimo in združimo v en sam seznam.                    
+        temp = self.formula                 #seznam izazov, ki nastopajo v OR()
         while True:
-            lst = []
+            lst = []                        #seznam, ki bo hranil razširjeni seznam
             found = False;
             for p in temp:
                 if isinstance(p,Or):
@@ -232,6 +233,7 @@ class Or():
             temp = lst
             if not found:
                 break
+                                    #Zavržemo podvojene spremenljivke in vrednosti Fls().
         s=sorted([p.spl() for p in temp],key =str)
         lst=[]
         for p in s:
@@ -247,13 +249,13 @@ class Or():
             return Fls()
         if len(lst)==1:
             return lst[0].spl()
-        #negacija
+                                    #Upoštevamo funkcije za negacijo.
         for i in range(len(lst)):
             for j in range(i):
                 if str(simplify(Not(lst[i])))==str(lst[j]):
                     return True
-        #absorpcija
-        eva = []
+                                    #Upoštevamo absorbcijo na elementarni ravni.
+        eva = []                            #prazen seznam, spremenljivk, ki jih bomo zavrgli zaradi absorpcije
         for p in lst:
             if isinstance(p,And):
                 removed = False
