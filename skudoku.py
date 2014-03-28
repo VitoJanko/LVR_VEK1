@@ -2,8 +2,6 @@ from bool import *
 from sat_solver import *
 #Prevajanje problemov iz razumljivih na grde
 
-##REPR TUKI NE DELA##
-
 def makeLatinSquare(n):
     formule = []
     for i in range(n):
