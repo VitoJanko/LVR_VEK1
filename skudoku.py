@@ -1,7 +1,34 @@
+from bool import *
+from sat_solver import *
 #Prevajanje problemov iz razumljivih na grde
 
 ##REPR TUKI NE DELA##
 
+def makeLatinSquare(n):
+    formule = []
+    for i in range(n):
+        for j in range(n):
+            formule.append(Or([Var(str(i)+str(j)+"_"+str(k+1)) for k in range(n)]))
+    for i in range(n):
+        for j in range(n):
+             for k in range(n):
+                 for l in range(k+1,n):
+                     formule.append(Not(And(
+                         [Var(str(i)+str(j)+"_"+str(k+1)),
+                          Var(str(i)+str(j)+"_"+str(l+1))])))
+    for row in range(n):
+        for e1 in range(n):
+            for e2 in range(e1+1,n):
+                for c in range(1,n+1):
+                    formule.append(Not(And([Var(str(row)+str(e1)+"_"+str(c)),Var(str(row)+str(e2)+"_"+str(c))])))
+
+    for column in range(n):
+        for e1 in range(n):
+            for e2 in range(e1+1,n):
+                for c in range(1,n+1):
+                    formule.append(Not(And([Var(str(e1)+str(column)+"_"+str(c)),Var(str(e2)+str(column)+"_"+str(c))])))
+
+    return And(formule)
 
 def makeSudoku(template):
     formule = []
@@ -14,7 +41,15 @@ def makeSudoku(template):
     #Pogoji da so vsa polja izpoljnena
     for i in range(9):
         for j in range(9):
-            formule.append(Or([str(i)+str(j)+str(k+1) for k in range(9)]))
+            formule.append(Or([Var(str(i)+str(j)+str(k+1)) for k in range(9)]))
+    #Na vsakem polju je samo ena vrednost
+    for i in range(9):
+        for j in range(9):
+             for k in range(9):
+                 for l in range(k+1,9):
+                     formule.append(Not(And(
+                         [Var(str(i)+str(j)+str(k+1)),
+                          Var(str(i)+str(j)+str(l+1))])))
     #Pogoji da so vse vrstice razlicne
     for row in range(9):
         for e1 in range(9):
