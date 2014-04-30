@@ -18,14 +18,14 @@ d.nnf()  					#spremeni v "negation normal form"
 cnf(d)						#spremeni v "conjuctive normal form"
 simplify(d)					#poenostavi izraz
 
--tester.py
+- tester.py
 Demonstrira zgoraj navedene spremembe oblik na razliènih primerih. Deluje kot tester za te osnovne opracije.
 Primere tudi reši z SAT algoritmom. 
 
--primeri.txt
+- primeri.txt
 Vsebuje primere, ki jih tester.py rešuje. 
 
--sat_solver.py
+- sat_solver.py
 Algoritem za reševanje SAT problema. Gre za DPLL algoritem (http://en.wikipedia.org/wiki/DPLL_algorithm), ki ima implementirano 
 tako eliminacijo samostojnih literalov, kot eliminacijo èistih literalov. Za vhod sprejme poljuben logièen izraz, vrne pa slovar
 spremenljivkin njihovih vrednosti. V primeru da je vrednost neke spremenljivke nepomembna za pravilnost izraza, jo v slovarju ni. 
@@ -34,13 +34,13 @@ Dodatno im algoritem možnost zastavice "simplify = False", ki izraz rešuje direk
 kadar je krajšanje izraza zamudno in brez želenega uèinka. Primer tega se pojavi pri reševanju sudoku-ja. 
 Primer uporabe:  resi(Neg(Var("n")) ) oziroma resi(Neg(Var("n")), simplify = False)
 
--sudoku.py
+- sudoku.py
 Naredi (spremeni problem v SAT problem) in vizualizira sudoku ter latinski kvadrat (poljubne dimenzije).
 
--HadamardMatrix.py
+- HadamardMatrix.py
 Naredi in vizualizira Hadamardovo matriko. 
 
--resevanjeNalog.py
+- resevanjeNalog.py
 V tej datoteki so primeri uporabe SAT algoritma na sudoku, latinskem kvadratu ter Hadamardovi matriki. 
 V njej je pokazana in komentirana uporaba vseh relevantnih funkcij v zgornjih treh datotekah. 
 Nove teste se lahko enostavno dodaja in požene na tem mestu. 
