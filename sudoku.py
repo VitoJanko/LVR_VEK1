@@ -1,12 +1,22 @@
 from bool import *
 from sat_solver import *
+#==========================================================================================
+
+#PROGRAM ZA PREVAJANJE LATINSKIH KVADRATOV IN SUDOKA NA SAT PROBLEM
+
+#==========================================================================================
+
 #Prevajanje problemov iz razumljivih na grde
 
+
 def makeLatinSquare(n):
+    #MAKELATINESQUARE(n) program, ki prevede Latinski kvadrat na SAT problem
     formule = []
+    #Vsi pogoji za izponjena polja
     for i in range(n):
         for j in range(n):
             formule.append(Or([Var(str(i)+str(j)+"_"+str(k+1)) for k in range(n)]))
+    #Na istem mestu nista dve razlicni vrednosti.
     for i in range(n):
         for j in range(n):
              for k in range(n):
@@ -14,12 +24,13 @@ def makeLatinSquare(n):
                      formule.append(Not(And(
                          [Var(str(i)+str(j)+"_"+str(k+1)),
                           Var(str(i)+str(j)+"_"+str(l+1))])))
+    #Vrstica vsebuje vsako vrednost najvec enkrat.
     for row in range(n):
         for e1 in range(n):
             for e2 in range(e1+1,n):
                 for c in range(1,n+1):
                     formule.append(Not(And([Var(str(row)+str(e1)+"_"+str(c)),Var(str(row)+str(e2)+"_"+str(c))])))
-
+    #Stolpec vsebuje vsako vrednost najvec enkrat.
     for column in range(n):
         for e1 in range(n):
             for e2 in range(e1+1,n):
@@ -29,6 +40,7 @@ def makeLatinSquare(n):
     return And(formule)
 
 def visualiseSquare(square,size):
+    #VISUALISESQUARE(square,size) je funkcija za lep izpis resitve Latinskega kvadrata.
     truths = [k for (k,v) in square.items() if v]
     positions = {} 
     for s in truths:
@@ -41,6 +53,7 @@ def visualiseSquare(square,size):
     print
  
 def makeSudoku(template):
+    #MAKESUDOKU(template) je funkcija, ki sudoku prevede na SAT problem.
     formule = []
     for (i,row) in enumerate(template):
         for (j,value) in enumerate(row):
@@ -49,7 +62,7 @@ def makeSudoku(template):
                 formule.append(Var(str(i)+str(j)+str(value)))
             #Pogoji da so vsa polja izpoljnena
             formule.append(Or([Var(str(i)+str(j)+str(k+1)) for k in range(9)]))
-##    #Na vsakem polju je samo ena vrednost
+    #Na vsakem polju je samo ena vrednost
     for row in range(9):
         for column in range(9):
              for i in range(9):
@@ -91,6 +104,7 @@ def makeSudoku(template):
     return And(formule)
 
 def visualiseSudoku(square):
+    #VISUALISESUDOKU(square) je funkcija, ki lapo izpise resen sedoku.
     truths = [k for (k,v) in square.items() if v]
     positions = {} 
     for s in truths:
@@ -107,6 +121,7 @@ def visualiseSudoku(square):
     print
 
 def visualiseTemplate(n1):
+    #VISUALISETEMPLATE(square) je funkcija, ki lapo izpise neresen sedoku.
     for i in range(9):
         if i%3==0 and i!=0:
             print "----------------------"

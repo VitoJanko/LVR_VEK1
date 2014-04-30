@@ -48,7 +48,7 @@ print "Resitev\n"
 visualiseSudoku(solution)                   #narise reistev
 
 print "SUDOKU ZELO TEZEK"
-print "Resevanje lahko traja nekaj minut\n"
+print "Resevanje lahko traja nekaj minut.\n"
 s2=[[1,0,0,0,0,0,0,0,0],
    [0,7,0,0,0,0,3,0,0],
    [4,9,6,8,0,0,0,0,0],
@@ -72,6 +72,6 @@ r = resi(makeHadamardovaMatrika(2))         #resi problem
 visualiseHadamard(r,2)                      #narise reistev
 
 print "HADAMARDOVA MATRIKA 4*4"
-print "Resevanje lahko traja nekaj minut\n"
+print "Resevanje lahko traja nekaj minut.\n"
 r = resi(makeHadamardovaMatrika(4))
 visualiseHadamard(r,4)
