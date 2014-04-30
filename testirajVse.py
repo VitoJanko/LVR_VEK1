@@ -1,13 +1,15 @@
 from bool import *
-seznam = [".nnf", ".nnf2", ".spl", ".cnf"]
+seznam = ["nnf", "nnf2", "spl", "cnf"]
 
 def Test(izraz):
-    for i in range(len(seznam)):
-        exec("b="+izraz+seznam[i]+"()")
-        print izraz+ "  "+ str(b)+"   "+seznam[i]
     exec("c="+izraz)
+    print str(izraz)
     print str(simplify(c))+ "  _______ poenostavljeno"
     print str(cnf(c))+ "  ________cnf"
+    
+    for i in range(len(seznam)):
+        exec("b="+izraz+"."+seznam[i]+"()")
+        print seznam[i]+": "+str(b)
     
 
 #izraz = "Tru()"

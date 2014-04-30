@@ -74,9 +74,27 @@ n7=[[4,5,2,8,0,3,7,6,1],
    [3,0,6,7,4,0,8,5,9],
    [8,4,5,9,6,1,3,7,0]]
 
-for 
-So_cnf = makeSudoku("n"+str(n))
+
+exec("ime="+"n"+str(n))
+def narisiSudoku(n1):
+    for i in range(9):
+        if i%3==0 and i!=0:
+            print "______________________"
+        for j in range(9):
+            if j%3==0 and j!=0:
+                print "|",
+            print n1[i][j],
+        print
+    
+narisiSudoku(ime)        
+So_cnf = makeSudoku(ime)
 print "tuki"
 resiSo = resi(So_cnf)
 print "tuki 1"
 print resiSo
+
+
+
+
+
+                                       
