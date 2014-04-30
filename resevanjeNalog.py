@@ -2,6 +2,12 @@ from sudoku import *
 from sat_solver import *
 from hadamardMatrix import *
 
+#================================================================================
+
+#PROGRAM Z PRIMERI na katerih uporabilo SAT solver
+
+#================================================================================
+
 #Primer uporabe latinskega kvadrata
 
 print "LATINSKI KVADRAT 3*3\n"
