@@ -18,6 +18,7 @@ def SAT(cnf,spr,cs,pureLiteral="True"):
         for formula in cnf:
             if len(formula)==0:
                 return False
+            #Eliminacija samostojnih pojavitev
             if len(formula)==1:
                 found = True
                 if formula[0][0]=='-':
@@ -28,6 +29,7 @@ def SAT(cnf,spr,cs,pureLiteral="True"):
                     spr[formula[0]]=True
                     if formula[0] in cs:
                         cs.remove(formula[0])
+            #Eliminacija cistih literalov
             if pureLiteral:
                 for literal in formula:
                     if literal[0]=='-':
@@ -48,16 +50,12 @@ def SAT(cnf,spr,cs,pureLiteral="True"):
             if len(positive)>0:
                 found=True
                 for literal in positive:
-                    if not literal in spr:
-                        print "Found one"
                     spr[literal]=True
                     if literal in cs:
                         cs.remove(literal)
             if len(negative)>0:
                 found=True
                 for literal in negative:
-                    if not literal in spr:
-                        print "Found one"
                     spr[literal]=False
                     if literal in cs:
                         cs.remove(literal)
@@ -92,7 +90,7 @@ def vstavi(cnf, spr, cd):
     for formula in cnf:
         podsez=[]
         isTrue = False
-                                    #Odstranimo notranje elemente, ki so False in vrne prazen seznam, ko najde element True.
+        #Odstranimo notranje elemente, ki so False in vrne prazen seznam, ko najde element True.
         for f in formula:
             found = False
             if f in spr.keys():             #spremenlivka je ze v slovarju spr

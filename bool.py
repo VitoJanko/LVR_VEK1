@@ -70,7 +70,7 @@ class Tru():
     def spl(self):
         return Tru()
     def cnf(self):
-        return And([Or([Tru()])])
+        return And([])
 
 
 class Var():
