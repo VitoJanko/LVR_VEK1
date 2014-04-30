@@ -28,6 +28,18 @@ def makeLatinSquare(n):
 
     return And(formule)
 
+def visualiseSquare(square,size):
+    truths = [k for (k,v) in square.items() if v]
+    positions = {} 
+    for s in truths:
+        positions[(s[0],s[1])] = s[3]
+    for i in range(size):
+        s = ""
+        for j in range(size):
+            s+= positions[(str(i),str(j))]+" "
+        print s
+    print
+ 
 def makeSudoku(template):
     formule = []
     #Vsi pogoji za izpoljena polja 
