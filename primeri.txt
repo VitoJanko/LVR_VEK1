@@ -35,4 +35,7 @@ Primer:And([Not(Var('p')),Or([And([Var('q'),Var('r'),Var('s')]), Not(Var('r'))])
 Primer:Or([Var('p'), And([Var('q'), Var('p')]), And([Var('r'), Var('q')])])
 Primer:Or([Not(Var('p')),And([Or([Var('p'),Var('q'),Var('r')]), Not(Var('q'))])])
 Primer:Or([Not(Var('p')),Not(And([Or([Var('p'),Var('q'),Var('r')])])),And([Or([Var('p'),Var('q'),Var('r')])]), Not(Var('q'))])
+Primer:And([Not(Var('p')),Not(And([Or([Var('p'),Var('q'),Var('r')])])),And([Or([Var('p'),Var('q'),Var('r')])]), Not(Var('q'))])
+Primer:And([Not(Var('p')),Not(And([Or([Var('n'),Var('m'),Var('o')])])),And([Or([Var('p'),Var('q'),Var('r')])]), Not(Var('q'))])
+Primer:And([Not(Var('p')),Or([Or([Var('n'),Var('m'),Var('o')])]),Or([Or([Var('p'),Var('q'),Var('r')])]), Not(Var('q'))])
 
