@@ -35,6 +35,25 @@ solution = resi(sudoku,simplify = False)
 print "Resitev\n"
 visualiseSudoku(solution)
 
+print "SUDOKU ZELO TEZEK"
+print "Resevanje lahko traja nekaj minut\n"
+s2=[[1,0,0,0,0,0,0,0,0],
+   [0,7,0,0,0,0,3,0,0],
+   [4,9,6,8,0,0,0,0,0],
+   [6,5,9,7,0,0,0,0,4],
+   [0,0,4,0,9,0,2,8,0],
+   [0,0,0,5,4,0,0,0,0],
+   [8,0,0,0,3,0,0,1,9],
+   [0,0,0,0,0,4,0,0,7],
+   [9,0,0,0,5,0,0,6,0]]
+print "Naloga\n"
+visualiseTemplate(s2)        
+sudoku = makeSudoku(s2)
+solution = resi(sudoku,simplify = False)
+print "Resitev\n"
+visualiseSudoku(solution)
+
+
 print "HADAMARDOVA MATRIKA 2*2\n"
 r = resi(makeHadamardovaMatrika(2))
 visualiseHadamard(r,2)
