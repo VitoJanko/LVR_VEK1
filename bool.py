@@ -15,6 +15,10 @@ def cnf(formula):
     #Funkcija klice metodo cnf znotraj posameznih razredov.
     return simplify(formula).cnf()
 
+def cnfUnsimplified(formula):
+    f = formula.nnf().cnf()
+    return f
+
 #================================================================================
 #RAZREDI ZA DELO Z LOGIÈNIMI VEZNIKI
 

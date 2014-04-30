@@ -11,7 +11,7 @@ def SAT(cnf,spr,cs):
     #spr=spremenljivke, cs=seznam spremenljivk, ki nimajo se vrednosti
     found = True
     #Najprej resimo izraze v cnf z eno spremenljivko z doloceno vrednostjo ali z nic spremenljivkami.
-    while found: 
+    while found:
         cnf = vstavi(cnf,spr,cs)
         found =False
         for formula in cnf:
@@ -26,7 +26,8 @@ def SAT(cnf,spr,cs):
                 else:
                     spr[formula[0]]=True
                     if formula[0] in cs:
-                        cs.remove(formula[0])              
+                        cs.remove(formula[0])
+    
     #Dolocimo vrednost spremenljivk, ki se nimajo dolocenih vrednosti. 
     if len(cnf)==0:
         return spr
@@ -77,9 +78,12 @@ def vstavi(cnf, spr, cd):
             sez.append(podsez)
     return sez
     
-def resi(izraz):
+def resi(izraz,simplify = True):
     #RESI(izraz) je funkcija, ki resi SAT s pomocjo funkcije SAT(cnf,spr,cs), in vrne seznam vrednosti spremenljivk, za katere je izraz resnicen.
-    izraz = cnf(izraz)
+    if simplify:
+        izraz = cnf(izraz)
+    else:
+        izraz = cnfUnsimplified(izraz)
     cnf1 = [f.formula for f in izraz.formula]
     cs = []
     cnF = []

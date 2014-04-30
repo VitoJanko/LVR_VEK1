@@ -48,8 +48,8 @@ def makeSudoku(template):
                 #Vsi pogoji za izpoljena polja
                 formule.append(Var(str(i)+str(j)+str(value)))
             #Pogoji da so vsa polja izpoljnena
-            formule.append(Not(Var(str(i)+str(j)+"0")))
-    #Na vsakem polju je samo ena vrednost
+            formule.append(Or([Var(str(i)+str(j)+str(k+1)) for k in range(9)]))
+##    #Na vsakem polju je samo ena vrednost
     for row in range(9):
         for column in range(9):
              for i in range(9):
@@ -87,7 +87,37 @@ def makeSudoku(template):
                 for c2 in range(c1+1,10):
                     formule.append(Not(And([Var(str(row)+str(column)+str(c1)),
                                             Var(str(row)+str(column)+str(c2))])))
-    print len(formule)
+    #print len(formule)
     return And(formule)
+
+def visualiseSudoku(square):
+    truths = [k for (k,v) in square.items() if v]
+    positions = {} 
+    for s in truths:
+        positions[(s[0],s[1])] = s[2]
+    for i in range(9):
+        s = ""
+        if i%3 == 0 and i!=0:
+            print "---------------------"
+        for j in range(9):
+            if j%3==0 and j!=0:
+                s+="| "
+            s+= positions[(str(i),str(j))]+" "
+        print s
+    print
+
+def visualiseTemplate(n1):
+    for i in range(9):
+        if i%3==0 and i!=0:
+            print "----------------------"
+        for j in range(9):
+            if j%3==0 and j!=0:
+                print "|",
+            if n1[i][j]==0:
+                print " ",
+            else:
+                print n1[i][j],
+        print
+    print
 
 #..................................................................................................
