@@ -12,7 +12,7 @@ def simplify(formula):
 
 def cnf(formula):
     #CNF(formula) je funkcija, ki logicni izraz pretvori v CNF obliko.
-    #Funkcija klice metodo cnf znotraj posameznih razredov.
+    #Funkcija klice metodo cnf znotraj posameznih razredov. 
     return simplify(formula).cnf()
 
 #================================================================================
@@ -168,7 +168,7 @@ class And():
         for i in range(len(lst)):
             for j in range(i):
                 if str(simplify(Not(lst[i])))==str(lst[j]):
-                    return False
+                    return Fls()
                                     #Upostevamo absorpcijo na elementarni ravni.
         karmen = []                         #prazen seznam, spremenljivk, ki jih bomo zavrgli zaradi absorpcije
         for p in lst:
@@ -259,7 +259,7 @@ class Or():
         for i in range(len(lst)):
             for j in range(i):
                 if str(simplify(Not(lst[i])))==str(lst[j]):
-                    return True
+                    return Tru()
                                     #Upostevamo absorbcijo na elementarni ravni.
         eva = []                            #prazen seznam, spremenljivk, ki jih bomo zavrgli zaradi absorpcije
         for p in lst:

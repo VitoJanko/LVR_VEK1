@@ -78,7 +78,9 @@ def vstavi(cnf, spr, cd):
     
 def resi(izraz):
     #RESI(izraz) je funkcija, ki resi SAT s pomocjo funkcije SAT(cnf,spr,cs), in vrne seznam vrednosti spremenljivk, za katere je izraz resnicen.
+    print "resi pred cnf"
     izraz = cnf(izraz)
+    print "resi po cnf"
     cnf1 = [f.formula for f in izraz.formula]
     cs = []
     cnF = []
