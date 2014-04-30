@@ -2,7 +2,7 @@ from sudoku import *
 from sat_solver import *
 
 #izberi sodoku:
-n=12
+n=2
 
 n1=[[2,1,3,7,5,8,4,9,6],
    [7,6,5,2,9,4,8,3,1],
@@ -112,7 +112,7 @@ exec("ime="+"n"+str(n))
 visualiseTemplate(ime)        
 So_cnf = makeSudoku(ime)
 print "tuki"
-resiSo = resi(So_cnf)
+resiSo = resi(So_cnf,simplify = False)
 print "tuki 1"
 visualiseSudoku(resiSo)
 

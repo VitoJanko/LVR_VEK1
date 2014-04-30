@@ -36,13 +36,13 @@ def SAT(cnf,spr,cs):
         cs = cs[1:]
         sprCopy = spr.copy()
         sprCopy[neReseno] = True
-        resitev = SAT(cnf, sprCopy, cs)
+        resitev = SAT(cnf, sprCopy, list(cs))
         if resitev:
            return resitev
         else:
             sprCopy = spr.copy()
             sprCopy[neReseno] = False
-            resitev = SAT(cnf, sprCopy, cs)
+            resitev = SAT(cnf, sprCopy, list(cs))
             if resitev:
                 return resitev
             else:
@@ -87,7 +87,7 @@ def resi(izraz,simplify = True):
     cnf1 = [f.formula for f in izraz.formula]
     cs = []
     cnF = []
-                                #Sestavimo seznam vseh spremenljivk, ki v izrazu nastopajo.
+    #Sestavimo seznam vseh spremenljivk, ki v izrazu nastopajo.
     for f in cnf1:
         s=[]
         for ff in f:
@@ -101,7 +101,6 @@ def resi(izraz,simplify = True):
                     if ff.formula.ime not in cs:
                         cs.append(ff.formula.ime)
         cnF.append(s)
-
     return SAT(cnF, {}, cs)
             
                 
