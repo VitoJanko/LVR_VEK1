@@ -10,7 +10,7 @@ def SAT(cnf,spr,cs):
     #SAT(cnf, spr, cs) je funkcija, ki resi SAT za podan slovar spremenljivk z ze dolocenimi vrednostmi in seznam spremenljivk, ki se nimajo dolocenih vrednosti.
     #spr=spremenljivke, cs=seznam spremenljivk, ki nimajo se vrednosti
     found = True
-                                #Najprej resimo izraze v cnf z eno spremenljivko z doloceno vrednostjo ali z nic spremenljivkami.
+    #Najprej resimo izraze v cnf z eno spremenljivko z doloceno vrednostjo ali z nic spremenljivkami.
     while found: 
         cnf = vstavi(cnf,spr,cs)
         found =False
@@ -26,21 +26,22 @@ def SAT(cnf,spr,cs):
                 else:
                     spr[formula[0]]=True
                     if formula[0] in cs:
-                        cs.remove(formula[0])
-                        
-                                #Dolocimo vrednost spremenljivk, ki se nimajo dolocenih vrednosti. 
+                        cs.remove(formula[0])              
+    #Dolocimo vrednost spremenljivk, ki se nimajo dolocenih vrednosti. 
     if len(cnf)==0:
         return spr
     else:
         neReseno = cs[0]
         cs = cs[1:]
-        spr[neReseno] = True
-        resitev = SAT(cnf, spr, cs)
+        sprCopy = spr.copy()
+        sprCopy[neReseno] = True
+        resitev = SAT(cnf, sprCopy, cs)
         if resitev:
            return resitev
         else:
-            spr[neReseno] = False
-            resitev = SAT(cnf, spr, cs)
+            sprCopy = spr.copy()
+            sprCopy[neReseno] = False
+            resitev = SAT(cnf, sprCopy, cs)
             if resitev:
                 return resitev
             else:
@@ -97,6 +98,7 @@ def resi(izraz):
                     if ff.formula.ime not in cs:
                         cs.append(ff.formula.ime)
         cnF.append(s)
+
     return SAT(cnF, {}, cs)
             
                 
