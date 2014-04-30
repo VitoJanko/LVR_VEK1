@@ -9,14 +9,21 @@ V projektu so naslednje datoteke:
 
 - bool.py
 Skripta za delo z logiènimi izrazi. Sledijo primeri uporabe.
-a = Tru()  					#Vrednost True, na volje je tudi Fls() za vrednost False 
-b = Var("n")  				#nova spremenljivka z imenom "n"
-c = Neg(Var("n")) 			#negacija spremenljivke z imenom "n"
-d = And([b,c,Tru(),Fls()])  #Veznik Ali izvedemo z seznamom elementov v konjunkciji enako za disjunkcijo
-#Naslednje metode so na voljo za spremembo iz ene oblike v drugo
-d.nnf()  					#spremeni v "negation normal form"
-cnf(d)						#spremeni v "conjuctive normal form"
-simplify(d)					#poenostavi izraz
+a = Tru()  					
+###Vrednost True, na volje je tudi Fls() za vrednost False 
+b = Var("n")  				
+###nova spremenljivka z imenom "n"
+c = Neg(Var("n")) 			
+###negacija spremenljivke z imenom "n"
+d = And([b,c,Tru(),Fls()])  
+###Veznik Ali izvedemo z seznamom elementov v konjunkciji enako za disjunkcijo
+###Naslednje metode so na voljo za spremembo iz ene oblike v drugo
+d.nnf()  					
+###spremeni v "negation normal form"
+cnf(d)						
+###spremeni v "conjuctive normal form"
+simplify(d)					
+###poenostavi izraz
 
 - tester.py
 Demonstrira zgoraj navedene spremembe oblik na razliènih primerih. Deluje kot tester za te osnovne opracije.
