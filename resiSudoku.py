@@ -74,6 +74,7 @@ n7=[[4,5,2,8,0,3,7,6,1],
    [3,0,6,7,4,0,8,5,9],
    [8,4,5,9,6,1,3,7,0]]
 
+for 
 So_cnf = makeSudoku("n"+str(n))
 print "tuki"
 resiSo = resi(So_cnf)

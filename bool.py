@@ -12,7 +12,7 @@ def simplify(formula):
 
 def cnf(formula):
     #CNF(formula) je funkcija, ki logicni izraz pretvori v CNF obliko.
-    #Funkcija klice metodo cnf znotraj posameznih razredov. 
+    #Funkcija klice metodo cnf znotraj posameznih razredov.
     return simplify(formula).cnf()
 
 #================================================================================
@@ -147,7 +147,7 @@ class And():
             temp = lst
             if not found:
                 break
-                                    #Zavrzemo podovjene spremenljivke in vrednosti Tru().
+                                    #Zavrzemo podvojene spremenljivke in vrednosti Tru().
         s=sorted([p.spl() for p in temp], key = str)
         lst=[]
         for p in s:
