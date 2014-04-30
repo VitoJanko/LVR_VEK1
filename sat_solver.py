@@ -7,10 +7,10 @@ from bool import *
 #===============================================================================
 
 def SAT(cnf,spr,cs):
-    #SAT(cnf, spr, cs) je funkcija, ki reši SAT za podan slovar spremenljivk z že doloèenimi vrednostmi in seznam spremenljivk, ki še nimajo doloèenih vrednosti.
+    #SAT(cnf, spr, cs) je funkcija, ki resi SAT za podan slovar spremenljivk z ze dolocenimi vrednostmi in seznam spremenljivk, ki se nimajo dolocenih vrednosti.
     #spr=spremenljivke, cs=seznam spremenljivk, ki nimajo se vrednosti
     found = True
-                                #Najprej rešimo izraze v cnf z eno spremenljivko z doloèeno vrednostjo ali z niè spremenljivkami.
+                                #Najprej resimo izraze v cnf z eno spremenljivko z doloceno vrednostjo ali z nic spremenljivkami.
     while found: 
         cnf = vstavi(cnf,spr,cs)
         found =False
@@ -28,7 +28,7 @@ def SAT(cnf,spr,cs):
                     if formula[0] in cs:
                         cs.remove(formula[0])
                         
-                                #Doloèimo vrednost spremenljivk, ki še nimajo doloèenih vrednosti. 
+                                #Dolocimo vrednost spremenljivk, ki se nimajo dolocenih vrednosti. 
     if len(cnf)==0:
         return spr
     else:
@@ -58,26 +58,26 @@ def vstavi(cnf, spr, cd):
                                     #Odstranimo notranje elemente, ki so False in vrne prazen seznam, ko najde element True.
         for f in formula:
             found = False
-            if f in spr.keys():             #spremenlivka je že v slovarju spr
+            if f in spr.keys():             #spremenlivka je ze v slovarju spr
                 if spr[f]:              
                     found =  True
                     isTrue = True
                 else:
                     found= True
-            if f[1:] in spr.keys():         #spremenljivka brez negacije je že v slovarju spr
+            if f[1:] in spr.keys():         #spremenljivka brez negacije je ze v slovarju spr
                 if spr[f[1:]]:
                     found =  True
                 else:
                     isTrue = True
                     found= True
-            if not found:                   #podsez je seznam vseh spremenljivk, ki še nimajo doloèene vrednosti
+            if not found:                   #podsez je seznam vseh spremenljivk, ki se nimajo dolocene vrednosti
                 podsez.append(f)
         if not isTrue:                  
             sez.append(podsez)
     return sez
     
 def resi(izraz):
-    #RESI(izraz) je funkcija, ki reši SAT s pomoèjo funkcije SAT(cnf,spr,cs), in vrne seznam vrednosti spremenljivk, za katere je izraz resnièen.
+    #RESI(izraz) je funkcija, ki resi SAT s pomocjo funkcije SAT(cnf,spr,cs), in vrne seznam vrednosti spremenljivk, za katere je izraz resnicen.
     izraz = cnf(izraz)
     cnf1 = [f.formula for f in izraz.formula]
     cs = []

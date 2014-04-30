@@ -7,12 +7,12 @@
 
 def simplify(formula):
     #SIMPLIFY(formula) je funkcija za poenostavljanje izjavne formule, na podlagi
-    #enaèn Boolove algebre. Klièe metodi nnf in spl znotraj posameznih razredov.
+    #enacn Boolove algebre. Klice metodi nnf in spl znotraj posameznih razredov.
     return formula.nnf().spl()
 
 def cnf(formula):
-    #CNF(formula) je funkcija, ki logièni izraz pretvori v CNF obliko.
-    #Funkcija klièe metodo cnf znotraj posameznih razredov.
+    #CNF(formula) je funkcija, ki logicni izraz pretvori v CNF obliko.
+    #Funkcija klice metodo cnf znotraj posameznih razredov.
     return simplify(formula).cnf()
 
 #================================================================================
@@ -21,10 +21,10 @@ def cnf(formula):
 #----------------------------------------------------------------------
 #OPIS METOD ZNOTRAJ RAZREDOV:
 #nnf():
-#   funkcija, ki izraz prevede v "negation normal form", èe ni negiran.
+#   funkcija, ki izraz prevede v "negation normal form", ce ni negiran.
 #
 #nnf2():
-#   funkcija, ki izraz prevede v "negation normal form", èe je negiran.
+#   funkcija, ki izraz prevede v "negation normal form", ce je negiran.
 #
 #spl():
 #   funkcija, ki izraz poenostavi.
@@ -87,7 +87,7 @@ class Var():
         return And([Or([Var(self.ime)])])
 
 class Not():
-    #NOT() je razred, ki predstavlja negacijo logiènega izraza.
+    #NOT() je razred, ki predstavlja negacijo logicnega izraza.
     def __init__(self,p):
         self.formula=p
     def __repr__(self,priority = 4):
@@ -105,7 +105,7 @@ class Not():
 
 class And():
     #AND() je razred, ki predstavlja konjunkcijo, sprejme seznam
-    #logiènih izrazov, ki jih povezuje.
+    #logicnih izrazov, ki jih povezuje.
     def __init__(self,ps):
         self.formula=ps
     def __repr__(self, priority = 1.5):
@@ -133,10 +133,10 @@ class And():
     def nnf2(self):
         return Or([Not(p).nnf() for p in self.formula])
     def spl(self):
-                                    #Notranje in zunanji AND() poenostavimo in združimo v en sam seznam.
+                                    #Notranje in zunanji AND() poenostavimo in zdruzimo v en sam seznam.
         temp = self.formula                 #seznam izrazov, ki nastopajo v AND()
         while True:
-            lst = []                        #seznam, ki bo hranil razširjen seznam
+            lst = []                        #seznam, ki bo hranil razsirjen seznam
             found = False;
             for p in temp:
                 if isinstance(p,And):
@@ -147,7 +147,7 @@ class And():
             temp = lst
             if not found:
                 break
-                                    #Zavržemo podovjene spremenljivke in vrednosti Tru().
+                                    #Zavrzemo podovjene spremenljivke in vrednosti Tru().
         s=sorted([p.spl() for p in temp], key = str)
         lst=[]
         for p in s:
@@ -156,7 +156,7 @@ class And():
                     lst.append(p)
                 elif str(p)!=str(lst[-1]):
                    lst.append(p)
-                                   #Celoten izraz spremenimo v Fls(), èe v seznamu lst nastopa vsaj en Fls(). 
+                                   #Celoten izraz spremenimo v Fls(), ce v seznamu lst nastopa vsaj en Fls(). 
         for p in lst:
             if str(p)=="False" or str(p)=="(False)":
                 return Fls()
@@ -164,12 +164,12 @@ class And():
             return Tru()
         if len(lst)==1:
             return lst[0].spl()
-                                    #Upoštevamo funkcije za negacijo.
+                                    #Upostevamo funkcije za negacijo.
         for i in range(len(lst)):
             for j in range(i):
                 if str(simplify(Not(lst[i])))==str(lst[j]):
                     return False
-                                    #Upoštevamo absorpcijo na elementarni ravni.
+                                    #Upostevamo absorpcijo na elementarni ravni.
         karmen = []                         #prazen seznam, spremenljivk, ki jih bomo zavrgli zaradi absorpcije
         for p in lst:
             if isinstance(p,Or):
@@ -192,12 +192,12 @@ class And():
             if isinstance(c,And):
                 nove+=c.formula
             else:
-                print "Neki je šlo zelo narobe."
+                print "Neki je slo zelo narobe."
         return And(nove)
         
 class Or():
     #OR() je razred, ki predstavlja disjunkcijo, sprejme seznam
-    #logiènih izrazov, ki jih povezuje.
+    #logicnih izrazov, ki jih povezuje.
     def __init__(self,ps):
         self.formula=ps
     def __repr__(self,priority=1.5):
@@ -225,10 +225,10 @@ class Or():
     def nnf2(self):
         return And([Not(p).nnf() for p in self.formula])
     def spl(self):
-                                    #Notranje in zunanji OR() poenostavimo in združimo v en sam seznam.                    
+                                    #Notranje in zunanji OR() poenostavimo in zdruzimo v en sam seznam.                    
         temp = self.formula                 #seznam izazov, ki nastopajo v OR()
         while True:
-            lst = []                        #seznam, ki bo hranil razširjeni seznam
+            lst = []                        #seznam, ki bo hranil razsirjeni seznam
             found = False;
             for p in temp:
                 if isinstance(p,Or):
@@ -239,7 +239,7 @@ class Or():
             temp = lst
             if not found:
                 break
-                                    #Zavržemo podvojene spremenljivke in vrednosti Fls().
+                                    #Zavrzemo podvojene spremenljivke in vrednosti Fls().
         s=sorted([p.spl() for p in temp],key =str)
         lst=[]
         for p in s:
@@ -255,12 +255,12 @@ class Or():
             return Fls()
         if len(lst)==1:
             return lst[0].spl()
-                                    #Upoštevamo funkcije za negacijo.
+                                    #Upostevamo funkcije za negacijo.
         for i in range(len(lst)):
             for j in range(i):
                 if str(simplify(Not(lst[i])))==str(lst[j]):
                     return True
-                                    #Upoštevamo absorbcijo na elementarni ravni.
+                                    #Upostevamo absorbcijo na elementarni ravni.
         eva = []                            #prazen seznam, spremenljivk, ki jih bomo zavrgli zaradi absorpcije
         for p in lst:
             if isinstance(p,And):
